@@ -42,6 +42,9 @@ class NoteListViewModel @Inject constructor(
     fun onCreateNote() {
         viewModelScope.launch {
             noteRepository.insertNote(title = uiState.value.title)
+            _uiState.update {
+                it.copy(title = "")
+            }
         }
     }
 }
