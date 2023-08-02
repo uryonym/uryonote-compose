@@ -11,7 +11,7 @@ interface NoteRepository {
 
     fun getNote(noteId: String): Flow<Note>
 
-    suspend fun insertNote(note: Note)
+    suspend fun insertNote(title: String)
 
     suspend fun updateNote(note: Note)
 
@@ -30,7 +30,12 @@ class NoteRepositoryImpl @Inject constructor(
         return localDataSource.getNote(noteId)
     }
 
-    override suspend fun insertNote(note: Note) {
+    override suspend fun insertNote(title: String) {
+        val note = Note(
+            id = "testid",
+            title = title,
+            content = ""
+        )
         localDataSource.insertNote(note)
     }
 

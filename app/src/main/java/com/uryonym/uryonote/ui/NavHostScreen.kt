@@ -17,15 +17,10 @@ fun NavHostScreen() {
         startDestination = NavigationRoute.NOTE_LIST_ROUTE
     ) {
         composable(route = NavigationRoute.NOTE_LIST_ROUTE) {
-            Column {
-                Text(text = "ノート一覧")
-                Button(onClick = { navController.navigate(NavigationRoute.NOTE_ADD_ROUTE) }) {
-                    Text(text = "追加画面に遷移")
-                }
-                Button(onClick = { navController.navigate(NavigationRoute.NOTE_EDIT_ROUTE) }) {
-                    Text(text = "編集画面に遷移")
-                }
-            }
+            NoteListScreen(
+                onNavigateAdd = { navController.navigate(NavigationRoute.NOTE_ADD_ROUTE) },
+                onNavigateEdit = { navController.navigate(NavigationRoute.NOTE_EDIT_ROUTE) }
+            )
         }
         composable(route = NavigationRoute.NOTE_ADD_ROUTE) {
             Column {
