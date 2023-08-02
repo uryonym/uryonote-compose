@@ -1,5 +1,6 @@
 package com.uryonym.uryonote.ui
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.lazy.LazyColumn
@@ -7,10 +8,12 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ListItem
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
@@ -18,7 +21,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 @Composable
 fun NoteListScreen(
     onNavigateAdd: () -> Unit,
-    onNavigateEdit: () -> Unit,
+    onNavigateEdit: (String) -> Unit,
     viewModel: NoteListViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -27,9 +30,6 @@ fun NoteListScreen(
         Text(text = "ノート一覧")
         Button(onClick = onNavigateAdd) {
             Text(text = "追加画面に遷移")
-        }
-        Button(onClick = onNavigateEdit) {
-            Text(text = "編集画面に遷移")
         }
 
         Row {
@@ -42,7 +42,10 @@ fun NoteListScreen(
         LazyColumn() {
             items(items = uiState.notes) { note ->
                 Column {
-                    Text(text = note.title)
+                    ListItem(
+                        headlineText = { Text(text = note.title) },
+                        modifier = Modifier.clickable { onNavigateEdit(note.id) }
+                    )
                     Divider()
                 }
             }

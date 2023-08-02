@@ -9,11 +9,11 @@ import javax.inject.Singleton
 interface NoteRepository {
     fun getNotes(): Flow<List<Note>>
 
-    fun getNote(noteId: String): Flow<Note>
+    suspend fun getNote(noteId: String): Note
 
     suspend fun insertNote(title: String)
 
-    suspend fun updateNote(note: Note)
+    suspend fun updateNote(noteId: String, title: String, content: String)
 
     suspend fun deleteNote(note: Note)
 }
@@ -26,7 +26,7 @@ class NoteRepositoryImpl @Inject constructor(
         return localDataSource.getNotes()
     }
 
-    override fun getNote(noteId: String): Flow<Note> {
+    override suspend fun getNote(noteId: String): Note {
         return localDataSource.getNote(noteId)
     }
 
@@ -39,7 +39,12 @@ class NoteRepositoryImpl @Inject constructor(
         localDataSource.insertNote(note)
     }
 
-    override suspend fun updateNote(note: Note) {
+    override suspend fun updateNote(noteId: String, title: String, content: String) {
+        val note = Note(
+            id = noteId,
+            title = title,
+            content = content
+        )
         localDataSource.updateNote(note)
     }
 
