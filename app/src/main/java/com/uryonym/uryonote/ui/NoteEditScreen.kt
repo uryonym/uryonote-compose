@@ -2,12 +2,15 @@ package com.uryonym.uryonote.ui
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
@@ -21,8 +24,19 @@ fun NoteEditScreen(
 
     Column {
         Text(text = "ノート編集")
-        TextField(value = uiState.title, onValueChange = viewModel::onTitleChange)
-        TextField(value = uiState.content, onValueChange = viewModel::onContentChange)
+        TextField(
+            value = uiState.title,
+            onValueChange = viewModel::onTitleChange,
+            singleLine = true,
+            modifier = Modifier.fillMaxWidth()
+        )
+        TextField(
+            value = uiState.content,
+            onValueChange = viewModel::onContentChange,
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight(0.8F)
+        )
         Row {
             Button(onClick = {
                 viewModel.onUpdateNote()
