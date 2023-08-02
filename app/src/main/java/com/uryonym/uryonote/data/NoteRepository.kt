@@ -15,7 +15,7 @@ interface NoteRepository {
 
     suspend fun updateNote(noteId: String, title: String, content: String)
 
-    suspend fun deleteNote(note: Note)
+    suspend fun deleteNote(noteId: String)
 }
 
 @Singleton
@@ -48,7 +48,7 @@ class NoteRepositoryImpl @Inject constructor(
         localDataSource.updateNote(note)
     }
 
-    override suspend fun deleteNote(note: Note) {
-        localDataSource.deleteNote(note)
+    override suspend fun deleteNote(noteId: String) {
+        localDataSource.deleteNote(noteId)
     }
 }

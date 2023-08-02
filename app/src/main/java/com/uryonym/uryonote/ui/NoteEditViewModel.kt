@@ -62,6 +62,8 @@ class NoteEditViewModel @Inject constructor(
     }
 
     fun onDeleteNote() {
-        viewModelScope.launch {  }
+        viewModelScope.launch {
+            noteRepository.deleteNote(uiState.value.noteId)
+        }
     }
 }

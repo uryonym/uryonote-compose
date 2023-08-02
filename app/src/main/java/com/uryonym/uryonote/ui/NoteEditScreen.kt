@@ -1,6 +1,7 @@
 package com.uryonym.uryonote.ui
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
@@ -22,8 +23,13 @@ fun NoteEditScreen(
         Text(text = "ノート編集")
         TextField(value = uiState.title, onValueChange = viewModel::onTitleChange)
         TextField(value = uiState.content, onValueChange = viewModel::onContentChange)
-        Button(onClick = viewModel::onUpdateNote) {
-            Text(text = "保存")
+        Row {
+            Button(onClick = viewModel::onUpdateNote) {
+                Text(text = "保存")
+            }
+            Button(onClick = viewModel::onDeleteNote) {
+                Text(text = "削除")
+            }
         }
         Button(onClick = onNavigateBack) {
             Text(text = "戻る")

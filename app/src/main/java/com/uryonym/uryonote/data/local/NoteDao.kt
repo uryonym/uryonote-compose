@@ -1,7 +1,6 @@
 package com.uryonym.uryonote.data.local
 
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
@@ -21,6 +20,6 @@ interface NoteDao {
     @Update
     suspend fun updateNote(note: Note)
 
-    @Delete
-    suspend fun deleteNote(note: Note)
+    @Query("DELETE FROM note WHERE id = :noteId")
+    suspend fun deleteNote(noteId: String)
 }
