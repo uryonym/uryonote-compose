@@ -24,10 +24,16 @@ fun NoteEditScreen(
         TextField(value = uiState.title, onValueChange = viewModel::onTitleChange)
         TextField(value = uiState.content, onValueChange = viewModel::onContentChange)
         Row {
-            Button(onClick = viewModel::onUpdateNote) {
+            Button(onClick = {
+                viewModel.onUpdateNote()
+                onNavigateBack()
+            }) {
                 Text(text = "保存")
             }
-            Button(onClick = viewModel::onDeleteNote) {
+            Button(onClick = {
+                viewModel.onDeleteNote()
+                onNavigateBack()
+            }) {
                 Text(text = "削除")
             }
         }
