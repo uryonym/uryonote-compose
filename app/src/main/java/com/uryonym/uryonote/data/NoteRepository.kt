@@ -3,6 +3,7 @@ package com.uryonym.uryonote.data
 import com.uryonym.uryonote.data.local.Note
 import com.uryonym.uryonote.data.local.NoteDao
 import kotlinx.coroutines.flow.Flow
+import java.util.UUID
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -32,7 +33,7 @@ class NoteRepositoryImpl @Inject constructor(
 
     override suspend fun insertNote(title: String) {
         val note = Note(
-            id = "testid",
+            id = UUID.randomUUID().toString(),
             title = title,
             content = ""
         )
