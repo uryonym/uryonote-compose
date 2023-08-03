@@ -2,6 +2,8 @@ package com.uryonym.uryonote.data
 
 import com.uryonym.uryonote.data.local.Note
 import com.uryonym.uryonote.data.local.NoteDao
+import com.uryonym.uryonote.data.network.ApiService
+import com.uryonym.uryonote.data.network.NoteApi
 import kotlinx.coroutines.flow.Flow
 import java.util.UUID
 import javax.inject.Inject
@@ -35,9 +37,10 @@ class NoteRepositoryImpl @Inject constructor(
         val note = Note(
             id = UUID.randomUUID().toString(),
             title = title,
-            content = ""
+            content = "test"
         )
         localDataSource.insertNote(note)
+        NoteApi.retrofitService.addNote(note.toNetwork())
     }
 
     override suspend fun updateNote(noteId: String, title: String, content: String) {
