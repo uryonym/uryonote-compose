@@ -2,7 +2,6 @@ package com.uryonym.uryonote.data
 
 import com.uryonym.uryonote.data.local.Note
 import com.uryonym.uryonote.data.local.NoteDao
-import com.uryonym.uryonote.data.network.ApiService
 import com.uryonym.uryonote.data.network.NoteApi
 import kotlinx.coroutines.flow.Flow
 import java.util.UUID
@@ -19,6 +18,8 @@ interface NoteRepository {
     suspend fun updateNote(noteId: String, title: String, content: String)
 
     suspend fun deleteNote(noteId: String)
+
+    suspend fun refreshNotes()
 }
 
 @Singleton
@@ -56,5 +57,13 @@ class NoteRepositoryImpl @Inject constructor(
     override suspend fun deleteNote(noteId: String) {
         localDataSource.deleteNote(noteId)
         NoteApi.retrofitService.deleteNote(noteId)
+    }
+
+    override suspend fun refreshNotes() {
+        val notes = NoteApi.retrofitService.getNotes().toLocal()
+        localDataSource.deleteAllNotes()
+        notes.map {
+            localDataSource.insertNote(it)
+        }
     }
 }

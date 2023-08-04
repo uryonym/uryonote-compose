@@ -18,7 +18,6 @@ fun NavHostScreen() {
     ) {
         composable(route = NavigationRoute.NOTE_LIST_ROUTE) {
             NoteListScreen(
-                onNavigateAdd = { navController.navigate(NavigationRoute.NOTE_ADD_ROUTE) },
                 onNavigateEdit = { noteId -> navController.navigate("${NavigationRoute.NOTE_EDIT_ROUTE}/${noteId}") }
             )
         }

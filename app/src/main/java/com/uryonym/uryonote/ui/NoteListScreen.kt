@@ -20,7 +20,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NoteListScreen(
-    onNavigateAdd: () -> Unit,
     onNavigateEdit: (String) -> Unit,
     viewModel: NoteListViewModel = hiltViewModel()
 ) {
@@ -28,8 +27,8 @@ fun NoteListScreen(
 
     Column {
         Text(text = "ノート一覧")
-        Button(onClick = onNavigateAdd) {
-            Text(text = "追加画面に遷移")
+        Button(onClick = viewModel::onRefreshNote) {
+            Text(text = "更新")
         }
 
         Row {

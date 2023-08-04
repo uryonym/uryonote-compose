@@ -47,4 +47,10 @@ class NoteListViewModel @Inject constructor(
             }
         }
     }
+
+    fun onRefreshNote() {
+        viewModelScope.launch {
+            noteRepository.refreshNotes()
+        }
+    }
 }
