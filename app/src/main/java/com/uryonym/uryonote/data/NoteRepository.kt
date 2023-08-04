@@ -55,5 +55,6 @@ class NoteRepositoryImpl @Inject constructor(
 
     override suspend fun deleteNote(noteId: String) {
         localDataSource.deleteNote(noteId)
+        NoteApi.retrofitService.deleteNote(noteId)
     }
 }
