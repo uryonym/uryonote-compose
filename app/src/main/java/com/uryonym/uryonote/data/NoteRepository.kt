@@ -50,6 +50,7 @@ class NoteRepositoryImpl @Inject constructor(
             content = content
         )
         localDataSource.updateNote(note)
+        NoteApi.retrofitService.editNote(noteId, note.toNetwork())
     }
 
     override suspend fun deleteNote(noteId: String) {
